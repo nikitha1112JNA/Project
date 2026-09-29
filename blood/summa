@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Blood Donation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { 
+            height: 100vh; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 250px; 
+            background-color: #dc3545; 
+            padding-top: 20px; 
+            color: white;
+        }
+        .sidebar .btn { 
+            width: 80%; 
+            margin: 10px auto; 
+            display: block; 
+            background-color: white; 
+            color: #dc3545;
+            border: none;
+        }
+        .sidebar .btn:hover { 
+            background-color: #f8f9fa; 
+            color: #dc3545;
+        }
+        .main-content { 
+            margin-left: 250px; 
+            padding: 20px; 
+        }
+        .table-container { 
+            max-height: 400px; 
+            overflow-y: auto; 
+        }
+        .action-btn { 
+            margin-right: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="text-center mb-4">Admin Panel</h4>
+        <button class="btn" onclick="window.location.href='admin_dashboard.html'">Dashboard</button>
+        <button class="btn" onclick="alert('Reports generation coming soon!')">Reports</button>
+        <button class="btn" onclick="window.location.href='index.html'">Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container mt-4">
+            <h2 class="text-center text-danger">Admin Dashboard</h2>
+
+            <!-- Overview Cards -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card p-3 bg-light">
+                        <h5>Total Donors</h5>
+                        <h3 class="text-primary">150</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 bg-light">
+                        <h5>Pending Requests</h5>
+                        <h3 class="text-warning">10</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 bg-light">
+                        <h5>Successful Donations</h5>
+                        <h3 class="text-success">120</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donor Management -->
+            <div class="mt-5">
+                <h4>Donor Management</h4>
+                <button class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#addDonorModal">Add Donor</button>
+                <div class="table-container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Blood Group</th>
+                                <th>Contact</th>
+                                <th>Last Donation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>A+</td>
+                                <td>123-456-7890</td>
+                                <td>2025-01-15</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning action-btn" onclick="alert('Edit Donor ID: 1')">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="alert('Delete Donor ID: 1')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>O-</td>
+                                <td>987-654-3210</td>
+                                <td>2025-02-20</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning action-btn" onclick="alert('Edit Donor ID: 2')">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="alert('Delete Donor ID: 2')">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Blood Request Management -->
+            <div class="mt-5">
+                <h4>Blood Request Management</h4>
+                <div class="table-container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Requester</th>
+                                <th>Blood Group</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Mary Johnson</td>
+                                <td>B+</td>
+                                <td>Pending</td>
+                                <td>2025-03-01</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success action-btn" onclick="alert('Approve Request ID: 1')">Approve</button>
+                                    <button class="btn btn-sm btn-danger" onclick="alert('Reject Request ID: 1')">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Peter Brown</td>
+                                <td>AB-</td>
+                                <td>Approved</td>
+                                <td>2025-03-05</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="alert('Mark as Fulfilled ID: 2')">Fulfilled</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Donor Modal -->
+    <div class="modal fade" id="addDonorModal" tabindex="-1" aria-labelledby="addDonorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDonorModalLabel">Add New Donor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDonorForm">
+                        <div class="mb-3">
+                            <label for="donorName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="donorName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bloodGroup" class="form-label">Blood Group</label>
+                            <select class="form-control" id="bloodGroup" required>
+                                <option value="">Select</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="contact" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastDonation" class="form-label">Last Donation Date</label>
+                            <input type="date" class="form-control" id="lastDonation">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="alert('Donor Added!')" data-bs-dismiss="modal">Add Donor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+session_start();
+
+// Database connection
+$servername = "localhost";
+$username = "root"; // Change as per your DB credentials
+$password = "";
+$dbname = "blood_donation_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check for connection error
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get user input
+    $name = trim($_POST['name']);
+    $age = (int)$_POST['age'];
+    $phone = trim($_POST['phone']);
+    $email = trim($_POST['email']);
+    $blood_group = trim($_POST['blood_group']);
+    $address = trim($_POST['address']);
+    $availability = trim($_POST['availability']);
+
+    // Validate fields
+    if (empty($name) || empty($age) || empty($phone) || empty($email) || empty($blood_group) || empty($address) || empty($availability)) {
+        echo "<script>alert('All fields are required!');</script>";
+    } else {
+        // Insert into database using prepared statement
+        $stmt = $conn->prepare("INSERT INTO donors (name, age, phone, email, blood_group, address, availability) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sisssss", $name, $age, $phone, $email, $blood_group, $address, $availability);
+
+        if ($stmt->execute()) {
+            // Store data in session to display on confirmation page
+            $_SESSION['donor_data'] = [
+                'name' => $name,
+                'age' => $age,
+                'phone' => $phone,
+                'email' => $email,
+                'blood_group' => $blood_group,
+                'address' => $address,
+                'availability' => $availability
+            ];
+
+            // Redirect to confirmation page
+            header("Location: donation_confirmation.php");
+            exit();
+        } else {
+            echo "<script>alert('Error: " . $stmt->error . "');</script>";
+        }
+
+        // Close statement
+        $stmt->close();
+    }
+}
+
+// Close connection
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Blood - Blood Donation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; padding: 20px; }
+        .form-container { padding: 20px; background-color: #fff; border: 1px solid #dc3545; border-radius: 5px; max-width: 600px; margin: 0 auto; }
+        .btn-danger { background-color: #dc3545; border: none; }
+        .btn-danger:hover { background-color: #c82333; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center text-danger">Donate Blood</h2>
+        <div class="form-container mt-4">
+            <form method="POST" action="">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" min="18" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="blood_group" class="form-label">Blood Group</label>
+                    <select class="form-control" id="blood_group" name="blood_group" required>
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Availability</label>
+                    <select class="form-control" id="availability" name="availability" required>
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">Register as Donor</button>
+            </form>
+        </div>
+        <div class="text-center mt-4">
+            <a href="user_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+

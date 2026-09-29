@@ -1,0 +1,36 @@
+CREATE DATABASE blood_donation_db;
+
+USE blood_donation_db;
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insert default admin (password should be hashed in real implementation)
+INSERT INTO admin (username, password) VALUES ('admin', 'admin123');
+
+
+CREATE TABLE register (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, -- Store hashed passwords
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE TABLE donors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT CHECK (age >= 18 AND age <= 65), -- Age restriction for blood donation
+    phone_no VARCHAR(15) NOT NULL UNIQUE,
+    address TEXT NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    availability ENUM('Yes', 'No') NOT NULL,
+    donation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
